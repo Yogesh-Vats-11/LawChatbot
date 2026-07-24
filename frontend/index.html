@@ -1,0 +1,349 @@
+<!-- removed api function line 42 and 251--> >
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LegalAI — AI Legal Intelligence System</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="shell">
+
+  <aside class="sidebar">
+
+    <div class="brand">
+      <span class="brand-icon">⚖</span>
+      <div>
+        <div class="brand-name">LegalAI</div>
+        <div class="brand-sub">Phase 3</div>
+      </div>
+    </div>
+
+    <nav>
+      <div class="nav-group-label">CORE</div>
+      <ul>
+        <li id="nav-chat"     class="active" onclick="go('chat-section')">💬 Legal Chat</li>
+        <li id="nav-case"                    onclick="go('case-section')">📊 Case Analysis</li>
+        <li id="nav-judgment"                onclick="go('judgment-section')">📄 Judgment Summarizer</li>
+        <li id="nav-sections"                onclick="go('sections-section'); loadSections()">⚖ Legal Sections</li>
+      </ul>
+
+      <div class="nav-group-label">FILING</div>
+      <ul>
+        <li id="nav-fir"      onclick="go('fir-section')">🚔 FIR Assistant</li>
+        <li id="nav-rti"      onclick="go('rti-section'); loadRTIGuide()">📋 RTI Guide</li>
+        <li id="nav-consumer" onclick="go('consumer-section'); loadConsumerGuide()">🛡 Consumer Court</li>
+        <li id="nav-documents"onclick="go('documents-section'); loadTemplates()">📝 Legal Documents</li>
+      </ul>
+
+      <div class="nav-group-label">PLATFORM</div>
+      <ul>
+       <!--- <li id="nav-api"      onclick="go('api-section'); loadAPIDocs()">🔑 Paid API</li> --->
+        <li id="nav-history"  onclick="go('history-section')">🕒 History</li>
+      </ul>
+    </nav>
+
+  </aside>
+
+  <main class="main">
+
+    <section id="chat-section" class="panel">
+      <div class="panel-header">
+        <h2>💬 Legal Chat</h2>
+        <p>Ask any legal question in plain language. Powered by BNS 2023.</p>
+      </div>
+      <div id="chat-box" class="chat-box">
+        <div class="chat-welcome">
+          <div class="welcome-badge">⚖</div>
+          <h3>Welcome to LegalAI</h3>
+          <p>Ask about any BNS section, FIR process, RTI, consumer rights or legal situation.</p>
+          <div class="quick-chips">
+            <button onclick="quickAsk('Punishment for theft under BNS')">Punishment for theft</button>
+            <button onclick="quickAsk('How to file an FIR in India?')">How to file FIR?</button>
+            <button onclick="quickAsk('RTI filing process and timeline')">RTI process</button>
+            <button onclick="quickAsk('Consumer court complaint procedure India')">Consumer court</button>
+          </div>
+        </div>
+      </div>
+      <div class="input-row">
+        <input id="chat-input" placeholder="Type your legal question..." onkeypress="if(event.key==='Enter') sendMsg()">
+        <button class="btn-send" onclick="sendMsg()">Send</button>
+        <button class="btn-mic" onclick="startVoice()" title="Voice input">🎤</button>
+      </div>
+    </section>
+
+    <section id="case-section" class="panel" style="display:none">
+      <div class="panel-header">
+        <h2>📊 Case Analysis</h2>
+        <p>Describe a legal situation and get applicable BNS sections and related offences.</p>
+      </div>
+      <textarea id="case-input" class="big-ta" placeholder="Describe the legal situation in detail...&#10;e.g. My neighbour broke into my house and took jewellery worth ₹2 lakhs while I was away."></textarea>
+      <button class="btn-primary" onclick="analyzeCase()">🔍 Analyze Case</button>
+      <div id="case-result" class="result-area"></div>
+    </section>
+
+    <section id="fir-section" class="panel" style="display:none">
+      <div class="panel-header">
+        <h2>🚔 FIR Assistant</h2>
+        <p>Generate a complete, police-ready FIR draft with applicable BNS sections, step-by-step guidance, and PDF download.</p>
+      </div>
+
+      <div class="form-grid">
+        <div class="field"><label>Full Name *</label><input id="fir-name" placeholder="Your full name"></div>
+        <div class="field"><label>Father's Name</label><input id="fir-father" placeholder="Father's name"></div>
+        <div class="field"><label>Address *</label><input id="fir-address" placeholder="Complete address"></div>
+        <div class="field"><label>Phone Number</label><input id="fir-phone" placeholder="Contact number"></div>
+        <div class="field">
+          <label>Incident Type *</label>
+          <select id="fir-type">
+            <option value="">-- Select --</option>
+            <option value="theft">Theft (चोरी)</option>
+            <option value="assault">Assault / Hurt (मारपीट)</option>
+            <option value="fraud">Fraud / Cheating (धोखाधड़ी)</option>
+            <option value="cybercrime">Cybercrime (साइबर अपराध)</option>
+            <option value="harassment">Harassment / Stalking</option>
+            <option value="robbery">Robbery / Dacoity (डकैती)</option>
+            <option value="murder">Murder / Homicide (हत्या)</option>
+            <option value="domestic_violence">Domestic Violence (घरेलू हिंसा)</option>
+          </select>
+        </div>
+        <div class="field"><label>Date of Incident</label><input type="date" id="fir-date"></div>
+        <div class="field"><label>Location of Incident</label><input id="fir-location" placeholder="Where did it happen?"></div>
+        <div class="field"><label>Accused Details</label><input id="fir-accused" placeholder="Name / description (if known)"></div>
+        <div class="field"><label>Witnesses</label><input id="fir-witnesses" placeholder="Names of witnesses (if any)"></div>
+      </div>
+      <div class="field full-w">
+        <label>Incident Description *</label>
+        <textarea id="fir-incident" class="med-ta" placeholder="Describe exactly what happened in detail..."></textarea>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn-primary" onclick="generateFIR()">🚔 Generate FIR Draft</button>
+        <button class="btn-secondary" id="fir-pdf-btn" style="display:none" onclick="downloadFIRPDF()">📄 Download PDF</button>
+      </div>
+
+      <div id="fir-result" style="display:none">
+        <div id="fir-sections"></div>
+        <div class="doc-box"><pre id="fir-text"></pre></div>
+        <div id="fir-steps"></div>
+      </div>
+    </section>
+
+    <section id="rti-section" class="panel" style="display:none">
+      <div class="panel-header">
+        <h2>📋 RTI Filing Guide</h2>
+        <p>Right to Information Act 2005 — get information from any public authority within 30 days.</p>
+      </div>
+
+      <div class="tabs">
+        <button class="tab active" onclick="tab(this,'rti-guide')">📖 Guide & Timeline</button>
+        <button class="tab" onclick="tab(this,'rti-draft')">✍ Draft Application</button>
+      </div>
+
+      <div id="rti-guide" class="tab-body">
+        <div id="rti-guide-content" class="card-grid"></div>
+      </div>
+
+      <div id="rti-draft" class="tab-body" style="display:none">
+        <div class="form-grid">
+          <div class="field"><label>Applicant Name *</label><input id="rti-name" placeholder="Your full name"></div>
+          <div class="field"><label>Address *</label><input id="rti-address" placeholder="Your address"></div>
+          <div class="field"><label>Phone</label><input id="rti-phone" placeholder="Contact number"></div>
+          <div class="field"><label>Authority / Department *</label><input id="rti-authority" placeholder="e.g. Ministry of Home Affairs"></div>
+          <div class="field">
+            <label>Authority Type</label>
+            <select id="rti-type"><option value="central">Central Govt</option><option value="state">State Govt</option></select>
+          </div>
+          <div class="field"><label>Period of Information</label><input id="rti-period" placeholder="e.g. Last 3 years (2022–2025)"></div>
+        </div>
+        <div class="field full-w">
+          <label>Information Sought *</label>
+          <textarea id="rti-info" class="med-ta" placeholder="Specify exactly what records / documents / data you need..."></textarea>
+        </div>
+        <div class="btn-row">
+          <button class="btn-primary" onclick="generateRTI()">📋 Generate RTI Application</button>
+          <button class="btn-secondary" id="rti-pdf-btn" style="display:none" onclick="downloadRTIPDF()">📄 Download PDF</button>
+        </div>
+        <div class="doc-box" id="rti-preview" style="display:none"><pre id="rti-text"></pre></div>
+      </div>
+    </section>
+
+    <section id="consumer-section" class="panel" style="display:none">
+      <div class="panel-header">
+        <h2>🛡 Consumer Court</h2>
+        <p>Consumer Protection Act 2019 — file complaints against defective goods or deficient services.</p>
+      </div>
+
+      <div class="tabs">
+        <button class="tab active" onclick="tab(this,'cc-guide')">📖 Court Guide</button>
+        <button class="tab" onclick="tab(this,'cc-form')">✍ File Complaint</button>
+      </div>
+
+      <div id="cc-guide" class="tab-body">
+        <div id="cc-guide-content" class="card-grid"></div>
+      </div>
+
+      <div id="cc-form" class="tab-body" style="display:none">
+        <div class="form-grid">
+          <div class="field"><label>Complainant Name *</label><input id="cc-name" placeholder="Your full name"></div>
+          <div class="field"><label>Complainant Address</label><input id="cc-address" placeholder="Your address"></div>
+          <div class="field"><label>Opposite Party *</label><input id="cc-op" placeholder="Seller / Company name"></div>
+          <div class="field"><label>Opposite Party Address</label><input id="cc-op-addr" placeholder="Company / seller address"></div>
+          <div class="field"><label>Date of Purchase</label><input type="date" id="cc-date"></div>
+          <div class="field"><label>Amount Paid (₹)</label><input id="cc-amount" type="number" placeholder="0"></div>
+          <div class="field">
+            <label>Deficiency Type</label>
+            <select id="cc-deficiency">
+              <option>-- Select --</option>
+              <option>Defective product / goods</option>
+              <option>Deficiency in service</option>
+              <option>Unfair trade practice</option>
+              <option>Overcharging / misleading pricing</option>
+              <option>Non-delivery of goods/services</option>
+              <option>Medical negligence</option>
+              <option>Builder/real estate fraud</option>
+              <option>E-commerce fraud</option>
+            </select>
+          </div>
+        </div>
+        <div class="field full-w">
+          <label>Facts of the Case *</label>
+          <textarea id="cc-facts" class="med-ta" placeholder="Describe what happened in detail..."></textarea>
+        </div>
+        <div class="field full-w">
+          <label>Relief Sought</label>
+          <textarea id="cc-relief" class="sm-ta" placeholder="Refund / replacement / compensation / other..."></textarea>
+        </div>
+        <div class="btn-row">
+          <button class="btn-primary" onclick="generateComplaint()">🛡 Generate Complaint</button>
+          <button class="btn-secondary" id="cc-pdf-btn" style="display:none" onclick="downloadCCPDF()">📄 Download PDF</button>
+        </div>
+        <div id="cc-result" style="display:none">
+          <div id="cc-court-banner"></div>
+          <div class="doc-box"><pre id="cc-text"></pre></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="documents-section" class="panel" style="display:none">
+      <div class="panel-header">
+        <h2>📝 Legal Document Generator</h2>
+        <p>Rent agreements, affidavits, legal notices, power of attorney, partnership deeds.</p>
+      </div>
+      <div id="tmpl-grid" class="tmpl-grid"></div>
+      <div id="doc-form" style="display:none">
+        <div class="back-row">
+          <button class="btn-back" onclick="hideDocForm()">← Templates</button>
+          <span id="doc-form-title" class="doc-form-title"></span>
+        </div>
+        <div class="form-grid" id="doc-fields"></div>
+        <div class="btn-row">
+          <button class="btn-primary" onclick="generateDoc()">📝 Generate</button>
+          <button class="btn-secondary" id="doc-pdf-btn" style="display:none" onclick="downloadDocPDF()">📄 Download PDF</button>
+        </div>
+        <div class="doc-box" id="doc-preview" style="display:none"><pre id="doc-text"></pre></div>
+      </div>
+    </section>
+
+    <!-- <section id="api-section" class="panel" style="display:none">
+      <div class="panel-header">
+      <h2>🔑 Paid API</h2>
+      <p>Integrate LegalAI into your product. Register and get an API key instantly.</p>
+      </div>
+
+      <div class="plans-grid">
+      <div class="plan">
+        <div class="plan-name">Free</div>
+        <div class="plan-price">₹0<span>/mo</span></div>
+        <div class="plan-calls">100 calls/month</div>
+        <ul><li>✓ Chat</li><li>✓ FIR</li><li>✓ RTI</li><li class="off">✗ Consumer</li><li class="off">✗ Documents</li></ul>
+        <button onclick="openPlanForm('free')">Get Free Key</button>
+      </div>
+      <div class="plan featured">
+        <div class="plan-badge">Popular</div>
+        <div class="plan-name">Basic</div>
+        <div class="plan-price">₹499<span>/mo</span></div>
+        <div class="plan-calls">1,000 calls/month</div>
+        <ul><li>✓ Chat</li><li>✓ FIR</li><li>✓ RTI</li><li>✓ Consumer</li><li>✓ Documents</li></ul>
+        <button onclick="openPlanForm('basic')">Get Basic Key</button>
+      </div>
+      <div class="plan">
+        <div class="plan-name">Pro</div>
+        <div class="plan-price">₹1,999<span>/mo</span></div>
+        <div class="plan-calls">10,000 calls/month</div>
+        <ul><li>✓ All endpoints</li><li>✓ Priority support</li><li>✓ Analytics</li><li>✓ Batch API</li><li>✓ Webhooks</li></ul>
+        <button onclick="openPlanForm('pro')">Get Pro Key</button>
+      </div>
+      <div class="plan enterprise">
+        <div class="plan-name">Enterprise</div>
+        <div class="plan-price">Custom</div>
+        <div class="plan-calls">Unlimited calls</div>
+        <ul><li>✓ Everything in Pro</li><li>✓ SLA agreement</li><li>✓ On-premise deploy</li><li>✓ Dedicated support</li><li>✓ Custom model</li></ul>
+        <button onclick="openPlanForm('enterprise')">Contact Us</button>
+      </div>
+      </div>
+
+      <div id="api-register" class="api-register" style="display:none">
+      <h3 id="api-plan-label">Register for API Key</h3>
+      <div class="form-grid">
+        <div class="field"><label>Name *</label><input id="api-name" placeholder="Your name"></div>
+        <div class="field"><label>Email *</label><input id="api-email" type="email" placeholder="your@email.com"></div>
+      </div>
+      <input type="hidden" id="api-plan-val">
+      <button class="btn-primary" onclick="registerKey()">🔑 Generate My API Key</button>
+      </div>
+
+      <div id="api-key-display" class="api-key-box" style="display:none">
+      <h3>🎉 Your API Key</h3>
+      <div class="key-row">
+        <code id="api-key-val"></code>
+        <button onclick="copyKey(this)">Copy</button>
+      </div>
+      <div id="api-key-meta"></div>
+      <h4>Quick Start</h4>
+      <pre id="api-snippet"></pre>
+      </div>
+
+      <div class="api-docs">
+      <h3>API Endpoints</h3>
+      <div id="api-docs-content"></div>
+      </div>
+    </section> -->
+
+    <section id="judgment-section" class="panel" style="display:none">
+      <div class="panel-header">
+        <h2>📄 Judgment Summarizer</h2>
+        <p>Paste any court judgment text and get a plain-language summary.</p>
+      </div>
+      <textarea id="judgment-text" class="big-ta" placeholder="Paste full court judgment here..."></textarea>
+      <button class="btn-primary" onclick="summarize()">⚡ Summarize</button>
+      <div class="doc-box" id="summary-box" style="display:none"><pre id="summary-text"></pre></div>
+    </section>
+
+    <section id="sections-section" class="panel" style="display:none">
+      <div class="panel-header">
+        <h2>⚖ BNS Legal Sections</h2>
+        <p>Browse all Bharatiya Nyaya Sanhita sections. Click any to ask the AI about it.</p>
+      </div>
+      <input id="sec-search" class="search-box" placeholder="Search by section number or title..." oninput="filterSections()">
+      <div id="sections-grid" class="sections-grid"></div>
+    </section>
+
+    <section id="history-section" class="panel" style="display:none">
+      <div class="panel-header">
+        <h2>🕒 Chat History</h2>
+        <p>Your recent legal queries — click any to ask again.</p>
+      </div>
+      <div id="history-list"></div>
+      <button class="btn-danger" onclick="clearHistory()">🗑 Clear All History</button>
+    </section>
+
+  </main>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

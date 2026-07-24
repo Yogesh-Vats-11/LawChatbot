@@ -1,0 +1,190 @@
+{
+  "theft": {
+    "section": "303",
+    "title": "Theft",
+    "category": "Property Crime",
+    "related": ["robbery", "dacoity", "criminal breach of trust"]
+  },
+
+  "robbery": {
+    "section": "304",
+    "title": "Robbery",
+    "category": "Property Crime",
+    "related": ["theft", "dacoity"]
+  },
+
+  "dacoity": {
+    "section": "305",
+    "title": "Dacoity",
+    "category": "Property Crime",
+    "related": ["robbery", "theft"]
+  },
+
+  "criminal breach of trust": {
+    "section": "316",
+    "title": "Criminal Breach of Trust",
+    "category": "Property Crime",
+    "related": ["cheating", "theft"]
+  },
+
+  "cheating": {
+    "section": "318",
+    "title": "Cheating",
+    "category": "Economic Crime",
+    "related": ["fraud", "criminal breach of trust"]
+  },
+
+  "fraud": {
+    "section": "318",
+    "title": "Fraudulent Activity",
+    "category": "Economic Crime",
+    "related": ["cheating"]
+  },
+
+  "murder": {
+    "section": "103",
+    "title": "Punishment for Murder",
+    "category": "Crimes Against Person",
+    "related": ["attempt to murder", "culpable homicide"]
+  },
+
+  "culpable homicide": {
+    "section": "101",
+    "title": "Culpable Homicide",
+    "category": "Crimes Against Person",
+    "related": ["murder"]
+  },
+
+  "attempt to murder": {
+    "section": "109",
+    "title": "Attempt to Murder",
+    "category": "Crimes Against Person",
+    "related": ["murder", "grievous hurt"]
+  },
+
+  "assault": {
+    "section": "351",
+    "title": "Assault",
+    "category": "Crimes Against Person",
+    "related": ["criminal force", "hurt"]
+  },
+
+  "criminal force": {
+    "section": "350",
+    "title": "Criminal Force",
+    "category": "Crimes Against Person",
+    "related": ["assault"]
+  },
+
+  "hurt": {
+    "section": "319",
+    "title": "Voluntarily Causing Hurt",
+    "category": "Crimes Against Person",
+    "related": ["grievous hurt", "assault"]
+  },
+
+  "grievous hurt": {
+    "section": "320",
+    "title": "Grievous Hurt",
+    "category": "Crimes Against Person",
+    "related": ["hurt", "attempt to murder"]
+  },
+
+  "kidnapping": {
+    "section": "137",
+    "title": "Kidnapping",
+    "category": "Crimes Against Person",
+    "related": ["abduction", "wrongful confinement"]
+  },
+
+  "abduction": {
+    "section": "138",
+    "title": "Abduction",
+    "category": "Crimes Against Person",
+    "related": ["kidnapping"]
+  },
+
+  "wrongful restraint": {
+    "section": "126",
+    "title": "Wrongful Restraint",
+    "category": "Crimes Against Person",
+    "related": ["wrongful confinement"]
+  },
+
+  "wrongful confinement": {
+    "section": "127",
+    "title": "Wrongful Confinement",
+    "category": "Crimes Against Person",
+    "related": ["wrongful restraint", "kidnapping"]
+  },
+
+  "criminal intimidation": {
+    "section": "351",
+    "title": "Criminal Intimidation",
+    "category": "Crimes Against Person",
+    "related": ["assault"]
+  },
+
+  "rape": {
+    "section": "63",
+    "title": "Rape",
+    "category": "Crimes Against Women",
+    "related": ["sexual assault"]
+  },
+
+  "sexual assault": {
+    "section": "64",
+    "title": "Sexual Assault",
+    "category": "Crimes Against Women",
+    "related": ["rape"]
+  },
+
+  "stalking": {
+    "section": "78",
+    "title": "Stalking",
+    "category": "Crimes Against Women",
+    "related": ["harassment"]
+  },
+
+  "harassment": {
+    "section": "79",
+    "title": "Harassment",
+    "category": "Crimes Against Women",
+    "related": ["stalking"]
+  },
+
+  "defamation": {
+    "section": "356",
+    "title": "Defamation",
+    "category": "Reputation Offences",
+    "related": ["criminal intimidation"]
+  },
+
+  "public nuisance": {
+    "section": "270",
+    "title": "Public Nuisance",
+    "category": "Public Order",
+    "related": []
+  },
+
+  "rioting": {
+    "section": "146",
+    "title": "Rioting",
+    "category": "Public Order",
+    "related": ["unlawful assembly"]
+  },
+
+  "unlawful assembly": {
+    "section": "141",
+    "title": "Unlawful Assembly",
+    "category": "Public Order",
+    "related": ["rioting"]
+  },
+
+  "bribery": {
+    "section": "171",
+    "title": "Bribery",
+    "category": "Corruption",
+    "related": ["fraud"]
+  }
+}
